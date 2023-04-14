@@ -22,8 +22,8 @@ public class PlayerMovement : MonoBehaviour
     private bool SwipeRight;
     private bool SwipeDown;
     private bool SwipeUp;
-    [HideInInspector]
-    public float xDirect = 2;
+   
+    public float xDirect = 1;
     [HideInInspector]
     public float xNewPos = 0;
     public float yNewPos;
@@ -56,24 +56,12 @@ public class PlayerMovement : MonoBehaviour
     {
         SwipeLeft = Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow);
         SwipeRight = Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.S);
-        #region Turn_
-        //isTurnleft = Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.LeftControl);
-        //isTurnright = Input.GetKeyDown (KeyCode.RightShift)|| Input.GetKeyDown(KeyCode.RightControl);
-
-        //if (isTurnleft)
-        //{
-        //    transform.Rotate(new Vector3(0, -90, 0));
-        //}
-        //else if (isTurnright)
-        //{ 
-        //    transform.Rotate(new Vector3(0, 90, 0));
-        //}
-        #endregion
+       
         if (SwipeLeft)
         {
             if (swipeDirec == Swipe.mid)
             {
-                xNewPos = xDirect * (-1);
+                xNewPos = -xDirect;
                 swipeDirec = Swipe.left;
                
             }
@@ -100,8 +88,9 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         xPosition = xNewPos - transform.position.x;
-        xPosition = Mathf.Lerp(xPosition,xNewPos, speedFwd * Time.deltaTime);
-
+        //xPosition = Mathf.Lerp(xPosition,xNewPos, speedFwd * Time.deltaTime);
+       
+        Debug.Log("Vi tri x: " + xPosition);
         Vector3 vectorMove = new Vector3(xPosition, yNewPos * Time.deltaTime, speedFwd * Time.deltaTime);
         //Vector3 vectorHorizontal = new Vector3(xPosition,0,0);
         m_Char.Move(vectorMove);
